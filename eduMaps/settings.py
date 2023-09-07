@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os, sys
+from dotenv import load_dotenv
 
 import eduMaps.coop_middleware
 
@@ -25,13 +26,15 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+load_dotenv()
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x7l4ebx$9b+jve5m3=szt(r6^re=f&6awu)k_kr^(0q03x29kw'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = ['81.163.27.110', 'localhost']
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -53,8 +56,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'eduMaps.coop_middleware.CustomHeadersMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'eduMaps.urls'
@@ -130,7 +132,7 @@ STATIC_URL = '/static/'
 #     BASE_DIR / "static",
 # ]
 #
-STATIC_ROOT = "/root/public/static"
+STATIC_ROOT = '/var/work/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
