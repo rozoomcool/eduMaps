@@ -1,0 +1,76 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{{ title }}
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="anonymous" />
+<!--<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />-->
+<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+            <div class="filters">
+
+                <div class="search-box">
+                <input type="text" placeholder="Поиск образовательного учреждения" id="search-input">
+                <img src="{% static 'main/img/search-icon.png' %}" class="search-icon" alt="Иконка поиска"
+                    style="margin: 2px 2px 2px 2px;">
+            </div>
+                    <div class="filter-list">
+                    <details id="form-details">
+                       <p> <summary> <strong data-lang="select_region">Выбрать район:</strong></summary></p>
+                        <button class="region-button" onclick="GROZ()">Грозный</button>
+                        <button class="region-button" onclick="ARGN()">Аргун</button>
+                        <button class="region-button" onclick="GRZR()">Грозненский район</button>
+                        <button class="region-button" onclick="URUS()">Урус-Мартановский район</button>
+                        <button class="region-button" onclick="ACHM()">Ачхой-Мартановский район</button>
+                        <button class="region-button" onclick="VEDN()">Веденский район</button>
+                        <button class="region-button" onclick="GUMS()">Гудермесский район</button>
+                        <button class="region-button" onclick="ITUM()">Итум-Калинский район</button>
+                        <button class="region-button" onclick="KURC()">Курчалоевский район</button>
+                        <button class="region-button" onclick="NTRK()">Надтеречный район</button>
+                        <button class="region-button" onclick="NAUR()">Наурский район</button>
+                        <button class="region-button" onclick="NOJU()">Ножай-Юртовский район</button>
+                        <button class="region-button" onclick="SERN()">Серноводский район</button>
+                        <button class="region-button" onclick="SHAL()">Шалинский район</button>
+                        <button class="region-button" onclick="SHAR()">Шаройский район</button>
+                        <button class="region-button" onclick="SHAT()">Шатойский район</button>
+                        <button class="region-button" onclick="SHEL()">Шелковской район</button>
+                    </details>
+                    </div>
+            </div>
+
+            <div class="map-container">
+
+                <form>
+                    {% csrf_token %}
+                    <div id="map" style="height: 87vh;"></div>
+                </form>
+            </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'main/js/education.js' %}"></script>
+<!--<script>-->
+<!--    let educations = [-->
+<!--    {% for edu in educations %}-->
+<!--    new Education({{ edu.id }}, "{{ edu.title }}", "{{ edu.description }}",  "{{ edu.web_site_url }}",  "{{ edu.contacts }}",  "{{ edu.address }}", "{{ edu.director_name }}",  "{{ edu.location }}",  "{{ edu.region }}"),-->
+<!--    {% endfor %}-->
+<!--  ]-->
+<!--</script>-->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="{% static 'main/js/script.js' %}"></script>
+<script src="{% static 'main/js/form_control.js' %}"></script>
+<script src="{% static 'main/js/script_site.js' %}"></script>
+<script src="{% static 'main/js/regions_load.js' %}"></script>
+<script src="{% static 'main/js/search.js' %}"></script>
+{% endblock %}
